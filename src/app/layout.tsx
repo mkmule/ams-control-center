@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
     <body className={inter.className}>
     <header className="p-2 my-2 border-b">
-      <h2 className="text-center text-xl">AMS - Control Center</h2>
+      <h2 className="text-center text-2xl">AMS - Control Center</h2>
     </header>
     {children}
     </body>
