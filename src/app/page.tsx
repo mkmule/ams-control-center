@@ -1,11 +1,24 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { setAttendees } from '@/services/attendees';
+import { getAttendeesRef } from '@/services/attendees-public';
+import { onValue } from '@firebase/database';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentNumberOfAttendees, setCurrentNumberOfAttendees] = useState<number | undefined>();
   const [numberOfAttendees, setNumberOfAttendees] = useState<string>('');
+
+  useEffect(() => {
+    // Subscribe for updates
+    const unsubscribeAttendeesRef = onValue(getAttendeesRef(), (snapshot) => {
+      setCurrentNumberOfAttendees(snapshot.val());
+    });
+
+    return () => {
+      unsubscribeAttendeesRef();
+    };
+  }, []);
 
   const handleUpdate = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -18,8 +31,7 @@ export default function Home() {
 
     setIsLoading(true);
     setAttendees(numberParsed)
-      .then((updatedNumberOfAttendees) => {
-        setCurrentNumberOfAttendees(updatedNumberOfAttendees);
+      .then(() => {
         setNumberOfAttendees('');
       })
       .catch(() => {

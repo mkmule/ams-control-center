@@ -15,7 +15,6 @@ if (!getApps().length) {
       databaseURL: 'https://ams24-ef028-default-rtdb.firebaseio.com',
     });
   }
-
 }
 
 export const db = admin.database();
