@@ -34,8 +34,9 @@ export default function Home() {
       .then(() => {
         setNumberOfAttendees('');
       })
-      .catch(() => {
-        console.log('ERROR');
+      .catch((error) => {
+        alert('Sorry, there was an error.');
+        console.error('ams-control-center_handleUpdate', error);
       })
       .finally(() => {
         setIsLoading(false);

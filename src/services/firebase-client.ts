@@ -3,7 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { getDatabase } from '@firebase/database';
 
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_CLIENT_API_KEY,
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_CLIENT_API_KEY,
   authDomain: 'ams24-ef028.firebaseapp.com',
   databaseURL: 'https://ams24-ef028-default-rtdb.firebaseio.com',
   projectId: 'ams24-ef028',
