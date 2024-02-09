@@ -43,8 +43,9 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center p-4">
       <form className="shadow-md border border-black rounded p-8" onSubmit={handleUpdate}>
-        <h3 className="text-xl flex items-center mb-6">
-          Current number of attendees:
+        <h3 className="text-xl text-center mb-6">
+          Current Number of Attendees
+          <br />
           <span className="text-3xl ml-1">
             {Number.isInteger(currentNumberOfAttendees) ? currentNumberOfAttendees : 'N/A'}
           </span>
