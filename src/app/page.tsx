@@ -1,18 +1,30 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { setAttendees } from '@/services/admin/attendees';
-import { onAttendeesUpdated } from '@/services/public/attendees';
+import { addMeeting, setAttendees } from '@/services/admin/attendees';
+import { onAttendeesUpdated, onMeetingsUpdated } from '@/services/public/attendees';
+import MeetingsTable from '@/components/MeetingsTable';
+import NewMeetingForm from '@/components/NewMeetingForm';
+import { Meeting } from '@/types/business';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentNumberOfAttendees, setCurrentNumberOfAttendees] = useState<number>();
   const [numberOfAttendees, setNumberOfAttendees] = useState<string>('');
+  const [activeMeetings, setActiveMeetings] = useState<Meeting[]>([]);
 
   useEffect(() => {
     const unsubscribeAttendeesRef = onAttendeesUpdated(setCurrentNumberOfAttendees);
 
     return () => {
       unsubscribeAttendeesRef();
+    };
+  }, []);
+
+  useEffect(() => {
+    const unsubscribeMeetingsRef = onMeetingsUpdated(setActiveMeetings);
+
+    return () => {
+      unsubscribeMeetingsRef();
     };
   }, []);
 
@@ -40,8 +52,12 @@ export default function Home() {
     ;
   };
 
+  const handleMeetingCreated = async (meeting: Meeting) => {
+    await addMeeting(meeting);
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center p-4">
+    <div className="container mx-auto p-4 max-w-[756px]">
       <form className="shadow-md border border-black rounded p-8" onSubmit={handleUpdate}>
         <h3 className="text-xl text-center mb-6">
           Current Number of Attendees
@@ -69,6 +85,11 @@ export default function Home() {
           </button>
         </div>
       </form>
+
+      <div className="my-4">
+        <NewMeetingForm handleMeetingCreated={handleMeetingCreated} />
+      </div>
+      <MeetingsTable meetings={activeMeetings} />
     </div>
   );
 }
