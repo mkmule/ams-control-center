@@ -1,8 +1,8 @@
 'use server';
-import { db } from '@/services/firebase';
+import { adminDatabase } from '@/services/firebase/firebase-admin';
 
 export const setAttendees = async (updatedNumberOfAttendees: number) => {
-  const ref = db.ref('channels/test');
+  const ref = adminDatabase.ref('channels/test');
   await ref.set(updatedNumberOfAttendees);
 
   return updatedNumberOfAttendees;

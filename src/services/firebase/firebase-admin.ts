@@ -4,6 +4,7 @@ import { getApps } from 'firebase-admin/app';
 const env = process.env.NODE_ENV;
 
 if (!getApps().length) {
+  const databaseURL = 'https://ams24-ef028-default-rtdb.firebaseio.com';
   if (env == 'development') {
     admin.initializeApp({
       credential: admin.credential.cert({
@@ -11,14 +12,14 @@ if (!getApps().length) {
         clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
         privateKey: (process.env.FIREBASE_ADMIN_PRIVATE_KEY || '').replace(/\\n/gm, '\n'),
       }),
-      databaseURL: 'https://ams24-ef028-default-rtdb.firebaseio.com',
+      databaseURL,
     });
   } else {
     admin.initializeApp({
       credential: admin.credential.applicationDefault(),
-      databaseURL: 'https://ams24-ef028-default-rtdb.firebaseio.com',
+      databaseURL,
     });
   }
 }
 
-export const db = admin.database();
+export const adminDatabase = admin.database();

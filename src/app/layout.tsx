@@ -16,11 +16,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    <body className={inter.className}>
+    <body className={`flex flex-col h-[100vh] ${inter.className}`}>
     <header className="p-2 my-2 border-b">
       <h2 className="text-center text-2xl">AMS - Control Center</h2>
     </header>
-    {children}
+    <main className="grow">
+      {children}
+    </main>
+    <footer className="p-2 my-2 border-t flex justify-between text-sm">
+      <p>Copyright MIT</p>
+      <p>UAE 2024</p>
+    </footer>
     </body>
     </html>
   );

@@ -60,6 +60,10 @@ USER nextjs
 
 EXPOSE 3000
 
+# Set firebase admin credentials
+# ENV FIREBASE_ADMIN_PROJECT_ID=
+# ENV FIREBASE_ADMIN_CLIENT_EMAIL=
+# ENV FIREBASE_ADMIN_PRIVATE_KEY=
 ENV PORT 3000
 # set hostname to localhost
 ENV HOSTNAME "0.0.0.0"

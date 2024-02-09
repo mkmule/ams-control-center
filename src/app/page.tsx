@@ -1,26 +1,22 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { setAttendees } from '@/services/attendees';
-import { getAttendeesRef } from '@/services/attendees-public';
-import { onValue } from '@firebase/database';
+import { setAttendees } from '@/services/admin/attendees';
+import { onAttendeesUpdated } from '@/services/public/attendees';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
-  const [currentNumberOfAttendees, setCurrentNumberOfAttendees] = useState<number | undefined>();
+  const [currentNumberOfAttendees, setCurrentNumberOfAttendees] = useState<number>();
   const [numberOfAttendees, setNumberOfAttendees] = useState<string>('');
 
   useEffect(() => {
-    // Subscribe for updates
-    const unsubscribeAttendeesRef = onValue(getAttendeesRef(), (snapshot) => {
-      setCurrentNumberOfAttendees(snapshot.val());
-    });
+    const unsubscribeAttendeesRef = onAttendeesUpdated(setCurrentNumberOfAttendees);
 
     return () => {
       unsubscribeAttendeesRef();
     };
   }, []);
 
-  const handleUpdate = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleUpdate = (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const numberParsed = Number(numberOfAttendees);
@@ -45,17 +41,18 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center p-4">
-
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <h3 className="text-xl my-2">Current number of attendees: <span
-          className="text-3xl">{Number.isInteger(currentNumberOfAttendees) ? currentNumberOfAttendees : 'N/A'}</span>
+    <div className="flex flex-col items-center justify-center p-4">
+      <form className="shadow-md border border-black rounded p-8" onSubmit={handleUpdate}>
+        <h3 className="text-xl flex items-center mb-6">
+          Current number of attendees:
+          <span className="text-3xl ml-1">
+            {Number.isInteger(currentNumberOfAttendees) ? currentNumberOfAttendees : 'N/A'}
+          </span>
         </h3>
 
-        <div className="mb-4">
+        <div className="mb-2">
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="numberOfAttendees"
             type="number"
             placeholder="Default: 0"
             value={numberOfAttendees}
@@ -64,14 +61,13 @@ export default function Home() {
         <div className="flex items-center justify-center">
           <button
             className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50 disabled:pointer-events-none"
-            type="button"
-            onClick={handleUpdate}
+            type="submit"
             disabled={isLoading}
           >
             Update
           </button>
         </div>
       </form>
-    </main>
+    </div>
   );
 }
