@@ -3,7 +3,6 @@
 ### Local development
 Make sure you have created _.env.local_ with required variables below (can be obtained from Firebase project console).
 ```
-NEXT_PUBLIC_FIREBASE_CLIENT_API_KEY=
 FIREBASE_ADMIN_PROJECT_ID=
 FIREBASE_ADMIN_CLIENT_EMAIL=
 FIREBASE_ADMIN_PRIVATE_KEY=
