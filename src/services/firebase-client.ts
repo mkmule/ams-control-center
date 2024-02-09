@@ -9,8 +9,8 @@ const firebaseConfig = {
   projectId: 'ams24-ef028',
   storageBucket: 'ams24-ef028.appspot.com',
   messagingSenderId: '81918373927',
-  appId: '1:81918373927:web:d3c068a70e6b162ee2de02',
-  measurementId: 'G-BLZ0FX0KCH',
+  appId: '1:81918373927:web:4aa32e4700cf0cb8e2de02',
+  measurementId: 'G-ZEEXB99JRJ',
 };
 
 // Initialize Firebase
