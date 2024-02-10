@@ -8,11 +8,15 @@ interface Props {
 }
 
 const NewMeetingForm = ({ onCreate }: Props) => {
-
   const [name, setName] = useState('');
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleCreateMeeting = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!name) {
+      console.warn('Missing meeting name!');
+      return;
+    }
 
     onCreate({ uid: uuidv4(), name, numberOfParticipants: 0 });
     setName('');
@@ -24,7 +28,7 @@ const NewMeetingForm = ({ onCreate }: Props) => {
         Create new meeting
       </h3>
 
-      <form className="flex justify-center items-center" onSubmit={handleFormSubmit}>
+      <form className="flex justify-center items-center" onSubmit={handleCreateMeeting}>
         <input
           type="text"
           className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1"

@@ -104,10 +104,10 @@ const MeetingsTable = ({ meetings, handleDelete, handleUpdate }: Props) => {
                 Name
               </th>
               <th scope="col" className="px-6 py-3">
-                # Participants
+                # Attendees
               </th>
               <th scope="col" className="px-6 py-3">
-                Update # Participants
+                Update # Attendees
               </th>
               <th scope="col" className="px-6 py-3">
                 Delete Meeting
