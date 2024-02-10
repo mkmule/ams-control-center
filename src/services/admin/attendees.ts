@@ -2,14 +2,20 @@
 import { adminDatabase } from '@/services/firebase/firebase-admin';
 import { Meeting } from '@/types/business';
 
-export const setAttendees = async (updatedNumberOfAttendees: number) => {
-  const ref = adminDatabase.ref('channels/test');
-  await ref.set(updatedNumberOfAttendees);
+export const addMeeting = async (meeting: Meeting) => {
+  const ref = adminDatabase.ref(`meetings/${meeting.uid}`);
+  await ref.set(meeting);
 
-  return updatedNumberOfAttendees;
+  return meeting;
+};
+export const deleteMeeting = async (meeting: Meeting) => {
+  const ref = adminDatabase.ref(`meetings/${meeting.uid}`);
+  await ref.remove();
+
+  return meeting;
 };
 
-export const addMeeting = async (meeting: Meeting) => {
+export const setMeeting = async (meeting: Meeting) => {
   const ref = adminDatabase.ref(`meetings/${meeting.uid}`);
   await ref.set(meeting);
 
